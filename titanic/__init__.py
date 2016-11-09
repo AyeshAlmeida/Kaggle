@@ -12,3 +12,4 @@ for row in csv_file_object:
 data = np.array(data);
 
 print(len(data));
+print("Hello World!");
