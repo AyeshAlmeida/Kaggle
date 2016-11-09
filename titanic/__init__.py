@@ -2,30 +2,28 @@ import csv as csv
 import numpy as np
 
 #reading the CSV
-csv_file_object = csv.reader(open('train.csv', 'rb'))
+csv_file = open('train.csv', 'rb')
+csv_file_object = csv.reader(csv_file)
 header = csv_file_object.next()
 
 #writing to Genderbased Modal
+gender_based_modal = open('gender_based_modal.csv', 'wb')
+gender_based_modal_object = csv.writer(gender_based_modal)
 
+#Writing to the gender_based_modal
+gender_based_modal_object.writerow(["PassengerId", "Survived"])
 
-data = []
 for row in csv_file_object:
-    data.append(row)
+    if row[4] == 'female':
+        print("female")
+        gender_based_modal_object.writerow([row[0], '1'])
+    else:
+        print("male")
+        gender_based_modal_object.writerow([row[0], '0'])
 
-data = np.array(data)
+csv_file.close()
+gender_based_modal.close()
 
-number_of_passengers = np.size(data[0::, 1].astype(np.float))
-number_of_survivers = np.sum(data[0::, 1].astype(np.float))
-propotion_of_survivers = number_of_survivers / number_of_passengers
-
-women_only_stats = data[0::, 4] == "female"
-men_only_stats = data[0::, 4] != "female"
-
-women_onboard = data[women_only_stats,1].astype(np.float)
-men_onboard = data[men_only_stats,1].astype(np.float)
-
-proportion_women_survived = np.sum(women_onboard) / np.size(women_onboard)
-proportion_men_survived = np.sum(men_onboard) / np.size(men_onboard)
 
 
 

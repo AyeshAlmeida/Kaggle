@@ -2,4 +2,5 @@
 .idea
 
 #data-set
-./titanic/train.csv
+titanic/train.csv
+titanic/gender_based_modal.csv
